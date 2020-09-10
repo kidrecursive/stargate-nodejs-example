@@ -1,0 +1,17 @@
+{
+  "name": "stargate-examples",
+  "version": "0.0.1",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "faker": "^5.1.0",
+    "lodash": "^4.17.20",
+    "node-fetch": "^2.6.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha stargate.test.js"
+  },
+  "mocha": {
+    "timeout": 10000
+  }
+}

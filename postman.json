@@ -1,0 +1,355 @@
+{
+	"info": {
+		"_postman_id": "ac67c467-50f1-41c3-b04e-cbe6a2f4b047",
+		"name": "Stargate Astra",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get an Auth Token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"{{username}}\",\n    \"password\": \"{{password}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{db}}-{{region}}.apps.astra.datastax.com/api/rest/v1/auth",
+					"protocol": "https",
+					"host": [
+						"{{db}}-{{region}}",
+						"apps",
+						"astra",
+						"datastax",
+						"com"
+					],
+					"path": [
+						"api",
+						"rest",
+						"v1",
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a Game Document",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-Cassandra-Token",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"gameCode\": \"DANG\",\n    \"currentState\": {\n        \"name\": \"ADD_PLAYERS\",\n        \"roundId\": null\n    },\n    \"players\": {},\n    \"audienceSize\": 0,\n    \"rounds\": {\n        \"1\": {\n            \"type\": \"QUESTION\",\n            \"title\": \"Round 1\",\n            \"scoreMultiplier\": 1\n        },\n        \"2\": {\n            \"type\": \"QUESTION\",\n            \"title\": \"Round 1\",\n            \"scoreMultiplier\": 2\n        },\n        \"3\": {\n            \"type\": \"COMIC\",\n            \"title\": \"Final Round\",\n            \"scoreMultiplier\": 3\n        }\n    },\n    \"questions\": {\n        \"1\": {\n            \"roundId\": 1,\n            \"content\": \"What time is it?\"\n        },\n        \"2\": {\n            \"roundId\": 2,\n            \"content\": \"What day is it?\"\n        },\n        \"3\": {\n            \"roundId\": 3,\n            \"content\": \"https://xkcd.com/386/\"\n        }\n    },\n    \"answers\": {},\n    \"votes\": {},\n    \"audienceVotes\": {}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{db}}-{{region}}.apps.astra.datastax.com/api/rest/v2/namespaces/{{keyspace}}/collections/games/1",
+					"protocol": "https",
+					"host": [
+						"{{db}}-{{region}}",
+						"apps",
+						"astra",
+						"datastax",
+						"com"
+					],
+					"path": [
+						"api",
+						"rest",
+						"v2",
+						"namespaces",
+						"{{keyspace}}",
+						"collections",
+						"games",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read a Game Document",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Cassandra-Token",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"url": {
+					"raw": "https://{{db}}-{{region}}.apps.astra.datastax.com/api/rest/v2/namespaces/{{keyspace}}/collections/games/1",
+					"protocol": "https",
+					"host": [
+						"{{db}}-{{region}}",
+						"apps",
+						"astra",
+						"datastax",
+						"com"
+					],
+					"path": [
+						"api",
+						"rest",
+						"v2",
+						"namespaces",
+						"{{keyspace}}",
+						"collections",
+						"games",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read a Questions Subdocument",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Cassandra-Token",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"url": {
+					"raw": "https://{{db}}-{{region}}.apps.astra.datastax.com/api/rest/v2/namespaces/{{keyspace}}/collections/games/1/questions",
+					"protocol": "https",
+					"host": [
+						"{{db}}-{{region}}",
+						"apps",
+						"astra",
+						"datastax",
+						"com"
+					],
+					"path": [
+						"api",
+						"rest",
+						"v2",
+						"namespaces",
+						"{{keyspace}}",
+						"collections",
+						"games",
+						"1",
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Partially Update the Game Document",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "X-Cassandra-Token",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"players\": {\n        \"1\": {\n            \"name\": \"CRW\",\n            \"score\": 100\n        },\n        \"2\": {\n            \"name\": \"DKG\",\n            \"score\": 200\n        }\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{db}}-{{region}}.apps.astra.datastax.com/api/rest/v2/namespaces/{{keyspace}}/collections/games/1",
+					"protocol": "https",
+					"host": [
+						"{{db}}-{{region}}",
+						"apps",
+						"astra",
+						"datastax",
+						"com"
+					],
+					"path": [
+						"api",
+						"rest",
+						"v2",
+						"namespaces",
+						"{{keyspace}}",
+						"collections",
+						"games",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Replace the Votes Subdocument",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-Cassandra-Token",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"1\": {\n        \"playerId\": \"CRW\"\n    },\n    \"2\": {\n        \"playerId\": \"DKG\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{db}}-{{region}}.apps.astra.datastax.com/api/rest/v2/namespaces/{{keyspace}}/collections/games/1/votes",
+					"protocol": "https",
+					"host": [
+						"{{db}}-{{region}}",
+						"apps",
+						"astra",
+						"datastax",
+						"com"
+					],
+					"path": [
+						"api",
+						"rest",
+						"v2",
+						"namespaces",
+						"{{keyspace}}",
+						"collections",
+						"games",
+						"1",
+						"votes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a Game Document",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "X-Cassandra-Token",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{db}}-{{region}}.apps.astra.datastax.com/api/rest/v2/namespaces/{{keyspace}}/collections/games/1",
+					"protocol": "https",
+					"host": [
+						"{{db}}-{{region}}",
+						"apps",
+						"astra",
+						"datastax",
+						"com"
+					],
+					"path": [
+						"api",
+						"rest",
+						"v2",
+						"namespaces",
+						"{{keyspace}}",
+						"collections",
+						"games",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "8e8cb60b-4427-4ce1-ae5d-2e5826534f0f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "40b76ae6-f4aa-4318-883d-666165756821",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "cd5d614a-89c7-4fb8-87a0-bce6c2da76e8",
+			"key": "region",
+			"value": ""
+		},
+		{
+			"id": "a94dff3f-6891-4220-81f6-e593336bc3a0",
+			"key": "db",
+			"value": ""
+		},
+		{
+			"id": "c45b91b9-70b5-41ff-b8d0-a414c7f4064d",
+			"key": "username",
+			"value": ""
+		},
+		{
+			"id": "5a380559-d8de-4185-9d1a-d3f6893bb6e9",
+			"key": "password",
+			"value": ""
+		},
+		{
+			"id": "5024fdbe-3fc6-4708-9c24-718c78bf217f",
+			"key": "keyspace",
+			"value": ""
+		},
+		{
+			"id": "d2d8433b-9299-4672-9612-de1e35893039",
+			"key": "token",
+			"value": ""
+		}
+	],
+	"protocolProfileBehavior": {}
+}
