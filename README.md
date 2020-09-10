@@ -1,7 +1,8 @@
 ## Stargate NodeJS Example
 
 The Stargate NodeJS Example is a project that exercises Stargate's schemaless API on Astra. The
-use case is storing game state for a game called BattleStax in a single document.
+use case is storing game state for a game called BattleStax in a single document. The usage 
+examples live in the `stargate.test.js` file.
 
 ### Prerequisites
 -  NodeJS 12+
